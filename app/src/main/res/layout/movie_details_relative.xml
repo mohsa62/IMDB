@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl">
+    <!--قسمت بالا، پروفایل کاربر-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image_movie_detail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/profile_place_holder"/>
+    <TextView
+        android:id="@+id/profile_name_movie_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/profile_image_movie_detail"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:minLines="1"
+        android:maxLines="1"
+        android:text="@string/already_a_member" />
+    <!--انتهای قسمت بالا، پروفایل کاربر-->
+
+    <!--قسمت وسط، اطلاعات اصلی فیلم و پوستر-->
+    <android.support.constraint.Guideline
+        android:id="@+id/Name_Guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".7"/>
+    <ImageView
+        android:id="@+id/Poster"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/dogville32x"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_line_guide"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_movie_detail"
+        app:layout_constraintEnd_toEndOf="@id/Name_Guide"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="1dp"
+        android:contentDescription="Movie Image"
+        android:scaleType="fitXY" />
+    <!--Movie_Name _ اسم فیلم -->
+    <TextView
+        android:id="@+id/Title_Movie_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_movie_detail"
+        app:layout_constraintStart_toStartOf="@id/Name_Guide"
+        app:layout_constraintBottom_toTopOf="@+id/Title_Director_Name"
+        android:text="نام فیلم:"
+        android:layout_marginTop="30dp"
+        style="@style/MovieListText"/>
+    <TextView
+        android:id="@+id/Detail_Movie_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/Title_Movie_Name"
+        app:layout_constraintTop_toTopOf="@id/Title_Movie_Name"
+        android:layout_marginStart="8dp"
+        style="@style/MovieListText"
+        android:text="اسم فیلم"/>
+    <!--Director_Name _ اسم کارگردان -->
+    <TextView
+        android:id="@+id/Title_Director_Name"
+        android:text="نام کارگردان:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/Name_Guide"
+        app:layout_constraintTop_toBottomOf="@id/Title_Movie_Name"
+        app:layout_constraintBottom_toTopOf="@+id/Title_Movie_Player"
+        style="@style/MovieListText"/>
+    <TextView
+        android:id="@+id/Detail_Director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/Title_Director_Name"
+        app:layout_constraintTop_toTopOf="@id/Title_Director_Name"
+        android:layout_marginStart="8dp"
+        style="@style/MovieListText"
+        android:text="اسم کارگردان"/>
+    <!--Movie_Score _ امتیاز فیلم -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Title_Movie_Player"
+        android:text="بازیگران:"
+        app:layout_constraintTop_toBottomOf="@id/Title_Director_Name"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_line_guide"
+        app:layout_constraintStart_toStartOf="@id/Name_Guide"
+        android:layout_marginBottom="30dp"
+        style="@style/MovieListText"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Movie_Player1"
+        app:layout_constraintStart_toEndOf="@id/Title_Movie_Player"
+        app:layout_constraintTop_toTopOf="@id/Title_Movie_Player"
+        android:layout_marginStart="8dp"
+        style="@style/MovieListText"
+        android:text="بازیگر 1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Movie_Player2"
+        app:layout_constraintStart_toEndOf="@id/Title_Movie_Player"
+        app:layout_constraintTop_toBottomOf="@id/Movie_Player1"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        style="@style/MovieListText"
+        android:text="بازیگر 2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Movie_Player3"
+        app:layout_constraintStart_toEndOf="@id/Title_Movie_Player"
+        app:layout_constraintTop_toBottomOf="@id/Movie_Player2"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        style="@style/MovieListText"
+        android:text="بازیگر 3" />
+
+    <!--Production_Year _ سال ساخت فیلم-->
+    <TextView
+        android:id="@+id/Detail_Release_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_movie_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        style="@style/MovieListText"
+        android:text="تاریخ"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/bottom_line_guide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".43"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Plot_Title"
+        app:layout_constraintTop_toBottomOf="@id/Movie_Player3"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="قصه فیلم:" />
+    <TextView
+        android:id="@+id/Detail_Plot"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="McMurphy has a criminal past and has once again gotten himself into trouble andis sentenced by the court. To escape labor duties in prison, McMurphy pleads insanity and is sent to a ward for the mentally unstable. Once here, McMurphy both endures and stands witness to the abuse and degradation of the oppressive Nurse Ratched, who gains superiority and power through the flaws of the other inmates. McMurphy and the other inmates band together to make a rebellious stance against the atrocious Nurse."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/Detail_Plot_Title"
+        app:layout_constraintTop_toBottomOf="@id/Movie_Player3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Producer_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Plot"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="نام تهیه کننده:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Producer"
+        app:layout_constraintTop_toTopOf="@id/Detail_Producer_Title"
+        app:layout_constraintStart_toEndOf="@id/Detail_Producer_Title"
+        android:layout_marginStart="8dp"
+        android:text="سیب"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Writer_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Producer_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="نام نویسنده:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Writer"
+        app:layout_constraintStart_toEndOf="@id/Detail_Writer_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_Writer_Title"
+        android:layout_marginStart="8dp"
+        android:text="صثق"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Score_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Writer_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="امتیاز فیلم و تعداد رای ها:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Score"
+        app:layout_constraintStart_toEndOf="@id/Detail_Score_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_Score_Title"
+        android:layout_marginStart="8dp"
+        android:text="123 12"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Country_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Score_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="کشور سازنده:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Country"
+        app:layout_constraintStart_toEndOf="@id/Detail_Country_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_Country_Title"
+        android:layout_marginStart="8dp"
+        android:text="آلمان"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_boxOffice_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Country_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="فروش:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_boxOffice"
+        app:layout_constraintStart_toEndOf="@id/Detail_boxOffice_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_boxOffice_Title"
+        android:layout_marginStart="8dp"
+        android:text="23423023423"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Time_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_boxOffice_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="مدت زمان:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Time"
+        app:layout_constraintStart_toEndOf="@id/Detail_Time_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_Time_Title"
+        android:layout_marginStart="8dp"
+        android:text="23"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Genre_Title"
+        app:layout_constraintTop_toBottomOf="@id/Detail_Time_Title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="ژانر:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Detail_Genre"
+        app:layout_constraintStart_toEndOf="@id/Detail_Genre_Title"
+        app:layout_constraintTop_toTopOf="@id/Detail_Genre_Title"
+        android:layout_marginStart="8dp"
+        android:text="کمدی"/>
+
+</android.support.constraint.ConstraintLayout>

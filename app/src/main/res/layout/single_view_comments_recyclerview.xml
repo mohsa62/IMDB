@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layoutDirection="rtl">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/profile_image_comments"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/profile_place_holder"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/profile_name_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minLines="1"
+            android:maxLines="1"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/profile_image_comments"
+            android:layout_centerVertical="true"
+            android:text="@string/already_a_member"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:id="@+id/Heart_Rating_comments"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/heart_off"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/comments_commentsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:text="نظر شما"/>
+</LinearLayout>
