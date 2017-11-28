@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import ir.mohsa.imdb.R;
 import ir.mohsa.imdb.list.EndlessAdapter;
@@ -26,8 +28,25 @@ public class profileFragment extends Fragment{
 
     class ProfileViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView profilePic;
+        private TextView profileName;
+        private TextView profileDescription;
+        private TextView profileDate;
+
         public ProfileViewHolder(View itemView) {
             super(itemView);
+
+        }
+
+        private void findViewItems() {
+            profilePic = (ImageView) itemView.findViewById(R.id.profile_picture);
+            profileName = (TextView) itemView.findViewById(R.id.name);
+            profileDescription = (TextView) itemView.findViewById(R.id.description);
+            profileDate = (TextView) itemView.findViewById(R.id.CreatedAt);
+        }
+
+        private void setContent() {
+            
         }
     }
 
@@ -40,22 +59,41 @@ public class profileFragment extends Fragment{
 
         @Override
         public RecyclerView.ViewHolder onDataCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            if (viewType == 0) {
+                View view = LayoutInflater.from(getContext())
+                        .inflate(R.layout.my_profile_info,parent,false);
+                return new ProfileViewHolder(view);
+            } else {
+                View view = LayoutInflater.from(getContext())
+                        .inflate(R.layout.single_view_for_recyclerview_b,parent,false);
+                return new MoviesViewHolder(view);
+            }
         }
 
         @Override
         public void onDataBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+
         }
 
         @Override
         protected int getLoadingViewType() {
-            return 0;
+            return R.layout.imdb_view_type_loading;
         }
 
         @Override
         protected void loadMore(int position, LoadMoreCallback callback) {
 
+        }
+
+        @Override
+        public int getDataItemViewType(int position) {
+            if (position == 0) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
         }
     }
 
