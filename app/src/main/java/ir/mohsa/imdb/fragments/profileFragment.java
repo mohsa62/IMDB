@@ -11,8 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import ir.mohsa.imdb.HttpAddresses;
+import ir.mohsa.imdb.HttpHelper;
 import ir.mohsa.imdb.R;
 import ir.mohsa.imdb.list.EndlessAdapter;
+import ir.mohsa.imdb.reqandres.PaginationRequest;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * dCreated by 3801261697 on 26/11/2017.
@@ -46,7 +58,7 @@ public class profileFragment extends Fragment{
         }
 
         private void setContent() {
-            
+
         }
     }
 
@@ -83,7 +95,27 @@ public class profileFragment extends Fragment{
 
         @Override
         protected void loadMore(int position, LoadMoreCallback callback) {
+            PaginationRequest requestJson = new PaginationRequest();
+            requestJson.setLimit(5);
+            requestJson.setSkip(position);
+            RequestBody body = RequestBody.create(HttpHelper.JSON,new Gson().toJson(requestJson));
+            Request request = new Request.Builder()
+                    .addHeader("Authorization",HttpHelper.getInstance().getLoginHeader(getContext()))
+                    .post(body)
+                    .url(HttpAddresses.getUserFavoriteMovies)
+                    .build();
+            HttpHelper.getInstance().getClient().newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                }
+            });
         }
 
         @Override

@@ -25,4 +25,5 @@ public class HttpAddresses {
         public final static String removeFromFavorite = BaseAddress + "removeFromFavorite";
         public final static String getMovieRatings = BaseAddress + "getMovieRatings";
         public final static String addRating = BaseAddress + "addRating";
+        public final static String getUserFavoriteMovies = BaseAddress + "getUserFavoriteMovies";
 }
