@@ -107,8 +107,7 @@ public class profileFragment extends Fragment{
             HttpHelper.getInstance().getClient().newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
-
+                    run
                 }
 
                 @Override
