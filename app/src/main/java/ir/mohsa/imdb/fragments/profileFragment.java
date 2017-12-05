@@ -10,15 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ir.mohsa.imdb.HttpAddresses;
 import ir.mohsa.imdb.HttpHelper;
 import ir.mohsa.imdb.R;
+import ir.mohsa.imdb.data.SharedMovie;
 import ir.mohsa.imdb.list.EndlessAdapter;
+import ir.mohsa.imdb.reqandres.MovieListResponse;
 import ir.mohsa.imdb.reqandres.PaginationRequest;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -63,6 +68,7 @@ public class profileFragment extends Fragment{
     }
 
     class EndlessProfileAdapter extends EndlessAdapter<RecyclerView.ViewHolder> {
+        List<SharedMovie> items = new ArrayList<>();
 
         @Override
         public int getDataItemsCount() {
@@ -94,7 +100,7 @@ public class profileFragment extends Fragment{
         }
 
         @Override
-        protected void loadMore(int position, LoadMoreCallback callback) {
+        protected void loadMore(int position, final LoadMoreCallback callback) {
             PaginationRequest requestJson = new PaginationRequest();
             requestJson.setLimit(5);
             requestJson.setSkip(position);
@@ -107,12 +113,26 @@ public class profileFragment extends Fragment{
             HttpHelper.getInstance().getClient().newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    run
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(),"failed to get user fav movies",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-
+                    String responseString = response.body().string();
+                    final MovieListResponse userMovieList = new Gson().fromJson(responseString, MovieListResponse.class);
+                    if (response.isSuccessful()) {
+                        if (userMovieList.getMovies() != null) {
+                            for (SharedMovie movie : userMovieList.getMovies()) {
+                                items.add(movie);
+                            }
+                            callback.done(userMovieList.getMovies().size());
+                        }
+                    }
                 }
             });
         }
