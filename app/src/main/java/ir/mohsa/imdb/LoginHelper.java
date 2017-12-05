@@ -17,6 +17,7 @@ public class LoginHelper {
     private final static String EmailKey = "email";
     private final static String ImageUri = "https://robohash.org/5a12876ee4b0fffc0ffc2ac5";
 
+    // TODO: 06/12/2017 اضافه کردن یک متغیر جدید به نام یوزر از نوع userInfo 
     public static void saveLoginData(Context context, LoginResponse loginResponse, String email){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
                 Context.MODE_PRIVATE);
