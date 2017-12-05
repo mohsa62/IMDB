@@ -1,5 +1,6 @@
 package ir.mohsa.imdb.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.List;
 import ir.mohsa.imdb.HttpAddresses;
 import ir.mohsa.imdb.HttpHelper;
 import ir.mohsa.imdb.R;
+import ir.mohsa.imdb.activities.ActivityLogin;
 import ir.mohsa.imdb.data.SharedMovie;
 import ir.mohsa.imdb.list.EndlessAdapter;
 import ir.mohsa.imdb.reqandres.MovieListResponse;
@@ -38,9 +41,30 @@ import okhttp3.Response;
 public class profileFragment extends Fragment{
     class MoviesViewHolder extends RecyclerView.ViewHolder {
 
+        private SharedMovie classData;
         public MoviesViewHolder(View itemView) {
             super(itemView);
         }
+
+        private  void setContent (SharedMovie data) {
+            classData = data;
+
+            Movie_NameVar.setText(classData.getName());
+            Director_NameVar.setText(classData.getDirector());
+            Production_YearVar.setText(classData.getReleaseDate());
+            if (classData.isInFavorite()){
+                StarVar.setImageResource(R.drawable.image_pressed);
+                StarVar.setTag("pressed");
+            }
+            else {
+                StarVar.setImageResource(R.drawable.image_regular);
+                StarVar.setTag("regular");
+            }
+
+            Glide.with(IMDBimageListFragment.this).load(classData.getPosterUrl())
+                    .placeholder(R.drawable.dogville32x).into(PosterVar);
+        }
+
     }
 
     class ProfileViewHolder extends RecyclerView.ViewHolder {
@@ -62,7 +86,7 @@ public class profileFragment extends Fragment{
             profileDate = (TextView) itemView.findViewById(R.id.CreatedAt);
         }
 
-        private void setContent() {
+        private void setContent(SharedMovie data) {
 
         }
     }
@@ -131,7 +155,27 @@ public class profileFragment extends Fragment{
                                 items.add(movie);
                             }
                             callback.done(userMovieList.getMovies().size());
+                        }else{
+                            callback.done(0);
                         }
+                    }else if(response.code() == 401 || userMovieList.getCode() == 401){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(),"Login Required",Toast.LENGTH_SHORT).show();
+                            Intent loginActivityIntent = new Intent(getActivity(), ActivityLogin.class);
+                            getActivity().finish();
+                            getActivity().startActivity(loginActivityIntent);
+                        }
+                    });
+                } else {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(), "Unknown Problem", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        callback.done(0);
                     }
                 }
             });
