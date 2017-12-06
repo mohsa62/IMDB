@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,8 +146,8 @@ public class profileFragment extends Fragment{
         @Override
         protected void loadMore(int position, final LoadMoreCallback callback) {
             PaginationRequest requestJson = new PaginationRequest();
-            requestJson.setLimit(5);
-            requestJson.setSkip(position);
+            requestJson.setLimit(1);
+            requestJson.setSkip(position - 1);
             RequestBody body = RequestBody.create(HttpHelper.JSON,new Gson().toJson(requestJson));
             Request request = new Request.Builder()
                     .addHeader("Authorization",HttpHelper.getInstance().getLoginHeader(getContext()))
@@ -168,6 +169,7 @@ public class profileFragment extends Fragment{
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.body() != null) {
                         String responseString = response.body().string();
+                        Log.e("my user fav movies",responseString);
                         final MovieListResponse userMovieList = new Gson().fromJson(responseString, MovieListResponse.class);
                         if (response.isSuccessful()) {
                             if (userMovieList.getMovies() != null) {
