@@ -12,6 +12,15 @@ public class userInfo implements Serializable {
     private String imageUri;
     private String email;
     private String description;
+    private String creationDate;
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public String getUserId() {
         return userId;

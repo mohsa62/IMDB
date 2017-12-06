@@ -3,6 +3,7 @@ package ir.mohsa.imdb;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import ir.mohsa.imdb.data.userInfo;
 import ir.mohsa.imdb.reqandres.LoginResponse;
 import ir.mohsa.imdb.reqandres.userResponse;
 
@@ -16,15 +17,22 @@ public class LoginHelper {
     private final static String TokenTypeKey = "type";
     private final static String EmailKey = "email";
     private final static String ImageUri = "https://robohash.org/5a12876ee4b0fffc0ffc2ac5";
+    private final static String userName = "myDefault Name";
+    private final static String userDescription = "default description";
+    private final static String myCreationDate = "2017-01-01 12:00:00";
 
-    // TODO: 06/12/2017 اضافه کردن یک متغیر جدید به نام یوزر از نوع userInfo 
-    public static void saveLoginData(Context context, LoginResponse loginResponse, String email){
+    // TODO: 06/12/2017 اضافه کردن یک متغیر جدید به نام یوزر از نوع userInfo
+    public static void saveLoginData(Context context, LoginResponse loginResponse, String email, userInfo myUser){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TokenKey, loginResponse.getAccessToken());
         editor.putString(TokenTypeKey, loginResponse.getTokenType());
         editor.putString(EmailKey, email);
+        editor.putString(userName, myUser.getFullName());
+        editor.putString(ImageUri, myUser.getImageUri());
+        editor.putString(userDescription, myUser.getDescription());
+        editor.putString(myCreationDate,myUser.getCreationDate());
         editor.apply();
     }
 
