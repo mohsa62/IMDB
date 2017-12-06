@@ -22,6 +22,7 @@ import java.util.List;
 
 import ir.mohsa.imdb.HttpAddresses;
 import ir.mohsa.imdb.HttpHelper;
+import ir.mohsa.imdb.LoginHelper;
 import ir.mohsa.imdb.R;
 import ir.mohsa.imdb.activities.ActivityLogin;
 import ir.mohsa.imdb.data.SharedMovie;
@@ -42,8 +43,19 @@ public class profileFragment extends Fragment{
     class MoviesViewHolder extends RecyclerView.ViewHolder {
 
         private SharedMovie classData;
+        private TextView Movie_NameVar;
+        private TextView Director_NameVar;
+        private TextView Production_YearVar;
+        private ImageView StarVar;
+        private ImageView PosterVar;
+
         public MoviesViewHolder(View itemView) {
             super(itemView);
+            Movie_NameVar = (TextView) itemView.findViewById(R.id.Movie_Name);
+            Director_NameVar = (TextView) itemView.findViewById(R.id.Director_Name);
+            Production_YearVar = (TextView) itemView.findViewById(R.id.Production_Year);
+            StarVar = (ImageView) itemView.findViewById(R.id.Star);
+            PosterVar = (ImageView) itemView.findViewById(R.id.Poster);
         }
 
         private  void setContent (SharedMovie data) {
@@ -61,7 +73,7 @@ public class profileFragment extends Fragment{
                 StarVar.setTag("regular");
             }
 
-            Glide.with(IMDBimageListFragment.this).load(classData.getPosterUrl())
+            Glide.with(profileFragment.this).load(classData.getPosterUrl())
                     .placeholder(R.drawable.dogville32x).into(PosterVar);
         }
 
@@ -76,7 +88,7 @@ public class profileFragment extends Fragment{
 
         public ProfileViewHolder(View itemView) {
             super(itemView);
-
+            findViewItems();
         }
 
         private void findViewItems() {
@@ -86,8 +98,12 @@ public class profileFragment extends Fragment{
             profileDate = (TextView) itemView.findViewById(R.id.CreatedAt);
         }
 
-        private void setContent(SharedMovie data) {
-
+        private void setContent() {
+            Glide.with(getActivity()).load(LoginHelper.getImageUri(getActivity()))
+                    .into(profilePic);
+            profileName.setText(LoginHelper.getUserName(getContext()));
+            profileDescription.setText(LoginHelper.getUserDescription(getContext()));
+            profileDate.setText(LoginHelper.getMyCreationDate(getContext()));
         }
     }
 
@@ -116,6 +132,8 @@ public class profileFragment extends Fragment{
         public void onDataBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if ( holder.getItemViewType() == 0) {
                 ((ProfileViewHolder)holder).setContent();
+            } else if (holder.getItemViewType() == 1) {
+                ((MoviesViewHolder)holder).setContent(items.get(position - 1));
             }
         }
 

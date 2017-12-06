@@ -57,6 +57,24 @@ public class LoginHelper {
         return sharedPreferences.getString(ImageUri,null);
     }
 
+    public static String getUserName(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getString(userName, null);
+    }
+
+    public static String getUserDescription(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getString(userDescription, null);
+    }
+
+    public static String getMyCreationDate(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getString(myCreationDate, null);
+    }
+
     public static void saveLoginDataExtra(Context context, userResponse my_user) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
                 Context.MODE_PRIVATE);
