@@ -138,7 +138,7 @@ public class IMDBimageListFragment extends Fragment{
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                Log.e("add to favorites",response.toString());
+//                                Log.e("add to favorites",response.toString());
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -168,7 +168,7 @@ public class IMDBimageListFragment extends Fragment{
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                Log.e("add to favorites",response.toString());
+//                                Log.e("add to favorites",response.toString());
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -226,7 +226,7 @@ public class IMDBimageListFragment extends Fragment{
                     .addHeader("Authorization",HttpHelper.getInstance().getLoginHeader(getContext()))
                     .post(paginReqBody)
                     .url(HttpAddresses.movieList).build();
-            Log.e("in load more header:",HttpHelper.getInstance().getLoginHeader(getContext()));
+//            Log.e("in load more header:",HttpHelper.getInstance().getLoginHeader(getContext()));
             HttpHelper.getInstance().getClient().newCall(paginRequest).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

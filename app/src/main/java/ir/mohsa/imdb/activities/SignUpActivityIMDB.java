@@ -128,13 +128,13 @@ public class SignUpActivityIMDB extends Activity {
                         public void onResponse(Call call, Response response) throws IOException {
                             String profile_response = response.body().string();
                             final userResponse my_user = new Gson().fromJson(profile_response,userResponse.class);
-                            Log.e("getProfile response",profile_response);
+//                            Log.e("getProfile response",profile_response);
                             if (response.isSuccessful()){
-                                Log.e("getProfile_isSuccessful", String.valueOf(my_user.isSuccess()));
+//                                Log.e("getProfile_isSuccessful", String.valueOf(my_user.isSuccess()));
                                 if (my_user.getUserInfo() != null) {
                                     LoginHelper.saveLoginDataExtra(SignUpActivityIMDB.this,my_user);
                                     loggedInUser = my_user.getUserInfo();
-                                    Log.e("getProfile public var",loggedInUser.toString());
+//                                    Log.e("getProfile public var",loggedInUser.toString());
                                 }
                             }
                         }
@@ -145,7 +145,7 @@ public class SignUpActivityIMDB extends Activity {
                     dialog.dismiss();
                 }
                 else {
-                    Log.e("sign up response;",ResponseString);
+//                    Log.e("sign up response;",ResponseString);
                     SignUpActivityIMDB.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

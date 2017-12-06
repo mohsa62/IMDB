@@ -40,7 +40,7 @@ import okhttp3.Response;
  */
 
 public class profileFragment extends Fragment{
-    class MoviesViewHolder extends RecyclerView.ViewHolder {
+    private class MoviesViewHolder extends RecyclerView.ViewHolder {
 
         private SharedMovie classData;
         private TextView Movie_NameVar;
@@ -49,7 +49,7 @@ public class profileFragment extends Fragment{
         private ImageView StarVar;
         private ImageView PosterVar;
 
-        public MoviesViewHolder(View itemView) {
+        MoviesViewHolder(View itemView) {
             super(itemView);
             Movie_NameVar = (TextView) itemView.findViewById(R.id.Movie_Name);
             Director_NameVar = (TextView) itemView.findViewById(R.id.Director_Name);
@@ -79,14 +79,14 @@ public class profileFragment extends Fragment{
 
     }
 
-    class ProfileViewHolder extends RecyclerView.ViewHolder {
+    private class ProfileViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView profilePic;
         private TextView profileName;
         private TextView profileDescription;
         private TextView profileDate;
 
-        public ProfileViewHolder(View itemView) {
+        ProfileViewHolder(View itemView) {
             super(itemView);
             findViewItems();
         }
@@ -107,7 +107,7 @@ public class profileFragment extends Fragment{
         }
     }
 
-    class EndlessProfileAdapter extends EndlessAdapter<RecyclerView.ViewHolder> {
+    private class EndlessProfileAdapter extends EndlessAdapter<RecyclerView.ViewHolder> {
         List<SharedMovie> items = new ArrayList<>();
 
         @Override
@@ -166,35 +166,37 @@ public class profileFragment extends Fragment{
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String responseString = response.body().string();
-                    final MovieListResponse userMovieList = new Gson().fromJson(responseString, MovieListResponse.class);
-                    if (response.isSuccessful()) {
-                        if (userMovieList.getMovies() != null) {
-                            for (SharedMovie movie : userMovieList.getMovies()) {
-                                items.add(movie);
+                    if (response.body() != null) {
+                        String responseString = response.body().string();
+                        final MovieListResponse userMovieList = new Gson().fromJson(responseString, MovieListResponse.class);
+                        if (response.isSuccessful()) {
+                            if (userMovieList.getMovies() != null) {
+                                for (SharedMovie movie : userMovieList.getMovies()) {
+                                    items.add(movie);
+                                }
+                                callback.done(userMovieList.getMovies().size());
+                            } else {
+                                callback.done(0);
                             }
-                            callback.done(userMovieList.getMovies().size());
-                        }else{
+                        } else if (response.code() == 401 || userMovieList.getCode() == 401) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getContext(), "Login Required", Toast.LENGTH_SHORT).show();
+                                    Intent loginActivityIntent = new Intent(getActivity(), ActivityLogin.class);
+                                    getActivity().finish();
+                                    getActivity().startActivity(loginActivityIntent);
+                                }
+                            });
+                        } else {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getContext(), "Unknown Problem", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             callback.done(0);
                         }
-                    }else if(response.code() == 401 || userMovieList.getCode() == 401){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getContext(),"Login Required",Toast.LENGTH_SHORT).show();
-                            Intent loginActivityIntent = new Intent(getActivity(), ActivityLogin.class);
-                            getActivity().finish();
-                            getActivity().startActivity(loginActivityIntent);
-                        }
-                    });
-                } else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(), "Unknown Problem", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        callback.done(0);
                     }
                 }
             });

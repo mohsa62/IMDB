@@ -18,8 +18,8 @@ public class SplashActivity extends Activity{
         super.onCreate(savedInstanceState);
         String userName = getUserName();
         if (userName != null) {
-            Log.e("login information:Token",LoginHelper.getAccessToken(this));
-            Log.e("login information:Type",LoginHelper.getTokenType(this));
+//            Log.e("login information:Token",LoginHelper.getAccessToken(this));
+//            Log.e("login information:Type",LoginHelper.getTokenType(this));
             Intent intent = new Intent(this,HomeActivityIMDB.class);
             startActivity(intent);
         }
