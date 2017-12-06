@@ -114,8 +114,9 @@ public class profileFragment extends Fragment{
 
         @Override
         public void onDataBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-
+            if ( holder.getItemViewType() == 0) {
+                ((ProfileViewHolder)holder).setContent();
+            }
         }
 
         @Override

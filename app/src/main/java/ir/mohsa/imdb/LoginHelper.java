@@ -22,17 +22,14 @@ public class LoginHelper {
     private final static String myCreationDate = "2017-01-01 12:00:00";
 
     // TODO: 06/12/2017 اضافه کردن یک متغیر جدید به نام یوزر از نوع userInfo
-    public static void saveLoginData(Context context, LoginResponse loginResponse, String email, userInfo myUser){
+    public static void saveLoginData(Context context, LoginResponse loginResponse, String email){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(TokenKey, loginResponse.getAccessToken());
         editor.putString(TokenTypeKey, loginResponse.getTokenType());
         editor.putString(EmailKey, email);
-        editor.putString(userName, myUser.getFullName());
-        editor.putString(ImageUri, myUser.getImageUri());
-        editor.putString(userDescription, myUser.getDescription());
-        editor.putString(myCreationDate,myUser.getCreationDate());
+
         editor.apply();
     }
 
@@ -65,6 +62,9 @@ public class LoginHelper {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(ImageUri, my_user.getUserInfo().getImageUri());
+        editor.putString(userName, my_user.getUserInfo().getFullName());
+        editor.putString(userDescription, my_user.getUserInfo().getDescription());
+        editor.putString(myCreationDate,my_user.getUserInfo().getCreationDate());
         editor.apply();
     }
 }
