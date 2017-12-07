@@ -113,7 +113,7 @@ public class profileFragment extends Fragment{
 
         @Override
         public int getDataItemsCount() {
-            return 0;
+            return items.size();
         }
 
         @Override
@@ -190,6 +190,7 @@ public class profileFragment extends Fragment{
                                     getActivity().startActivity(loginActivityIntent);
                                 }
                             });
+                            callback.done(0);
                         } else {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
